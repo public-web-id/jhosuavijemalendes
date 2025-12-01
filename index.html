@@ -3,127 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Outsourcing RSUD Talaud</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <title>Portfolio - Jhosua Vije Malendes | Sekretaris K3RS & Admin RSUD Talaud</title>
+    
+    <!-- Google Fonts: Playfair Display (Elegan) & Poppins (Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* --- GLOBAL STYLES & VARIABEL --- */
         :root {
-            --primary-color: #1e40af;
-            --secondary-color: #3b82f6;
-            --accent-color: #f59e0b;
-            --dark-bg: #0f172a;
-            --light-bg: #f8fafc;
+            --bg-dark: #1a1a1a;
+            --bg-card: #252525;
+            --color-primary: #C41E3A; /* Merah Crimson */
+            --color-accent: #D4AF37; /* Emas Elegant */
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
         }
 
         * {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
+            /* Padding bottom untuk navigasi bawah */
+            padding-bottom: 80px;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--color-accent);
+            margin-bottom: 20px;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 4px;
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 50px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--color-accent), transparent);
         }
 
-        /* Glass morphism effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
         }
 
-        /* Glow effect */
-        .glow {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        /* Fade in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        a:hover {
+            color: var(--color-primary);
         }
 
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
+        /* --- LOADER --- */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
         }
 
-        /* Slide in animation */
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in {
-            animation: slideIn 0.4s ease-out;
-        }
-
-        /* Pulse animation */
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .pulse-hover:hover {
-            animation: pulse 0.3s ease-in-out;
-        }
-
-        /* Card hover effect */
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Tab indicator */
-        .tab-indicator {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Loading spinner */
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
+        .loader {
+            border: 4px solid var(--bg-card);
+            border-top: 4px solid var(--color-accent);
             border-radius: 50%;
-            border-top: 3px solid #3b82f6;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
         }
 
@@ -132,722 +117,885 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Modal animation */
-        .modal-enter {
-            animation: modalEnter 0.3s ease-out;
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        @keyframes modalEnter {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Button styles */
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        /* --- MAIN CONTENT WRAPPER --- */
+        .main-content-wrapper {
             position: relative;
+            min-height: calc(100vh - 80px); /* Tinggi layar dikurangi nav bawah */
             overflow: hidden;
         }
 
-        .btn-primary::before {
+        /* --- PAGE CONTENT STYLES (untuk transisi) --- */
+        .page-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            padding: 60px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out, visibility 0s 0.6s;
+            overflow-y: auto; /* Memungkinkan scroll di dalam halaman jika konten terlalu panjang */
+        }
+
+        .page-content.active-page {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out, visibility 0s 0s;
+            position: relative;
+        }
+        
+        .page-content.page-home {
+             background: linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 0.8)), url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             text-align: center;
+        }
+
+        .page-content:not(.page-home) {
+            background-color: var(--bg-card);
+        }
+
+        /* --- HOME PAGE STYLES --- */
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--text-primary);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .hero-content .gold-text {
+            color: var(--color-accent);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--color-accent);
+            color: var(--bg-dark);
+            font-weight: 600;
+            border-radius: 50px;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            background-color: var(--color-primary);
+            color: var(--text-primary);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- ABOUT PAGE STYLES --- */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .about-img img {
+            max-width: 250px;
+            border-radius: 10px;
+            border: 5px solid var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .about-img img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- PERSONAL INFO STYLES --- */
+        .personal-info {
+            background: var(--bg-dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid var(--color-primary);
+        }
+
+        .personal-info h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .info-item i {
+            color: var(--color-accent);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* --- SERVICES/SKILLS PAGE STYLES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-dark);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 5px solid var(--color-primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(196, 30, 58, 0.2);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--color-accent);
+            margin-bottom: 20px;
+        }
+
+        /* --- EXPERIENCE & EDUCATION PAGE STYLES (TIMELINE) --- */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
             content: '';
             position: absolute;
-            top: 50%;
             left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--color-accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: var(--bg-dark);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--color-primary);
+            border: 4px solid var(--color-accent);
             border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            z-index: 1;
         }
 
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
         }
 
-        /* Form input styles */
-        .form-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        
+        /* --- ORGANIZATION PAGE STYLES --- */
+        .organization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .organization-card {
+            background: var(--bg-dark);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .organization-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .organization-card h3 {
+            color: var(--color-accent);
+            margin-bottom: 10px;
+        }
+
+        .organization-card p {
+            font-size: 0.9rem;
+        }
+        
+        /* --- GALLERY PAGE STYLES --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay p {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        /* --- ACHIEVEMENTS PAGE STYLES --- */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: var(--bg-dark);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--color-accent);
             transition: all 0.3s ease;
         }
 
-        .form-input:focus {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        .achievement-card:hover {
+            background: var(--color-accent);
+            color: var(--bg-dark);
         }
 
-        /* Status badge */
-        .status-badge {
-            display: inline-flex;
+        .achievement-card:hover p, .achievement-card:hover h3 {
+            color: var(--bg-dark);
+        }
+
+        .achievement-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- CONTACT PAGE STYLES --- */
+        .contact-wrapper {
+            display: flex;
+            gap: 40px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+
+        .contact-info-item {
+            display: flex;
             align-items: center;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info-item i {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-right: 15px;
+            width: 30px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid var(--color-accent);
+        }
+
+        .bottom-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-align: center;
+            transition: color 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .bottom-nav a i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .bottom-nav a.active,
+        .bottom-nav a:hover {
+            color: var(--color-accent);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            width: 100%;
+            position: relative;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+        
+        footer a {
             font-weight: 600;
         }
 
-        .status-active {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
 
-        .status-inactive {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
+            .about-content {
+                flex-direction: column;
+            }
 
-        /* Responsive 18:9 ratio */
-        .container-18-9 {
-            max-width: 100%;
-            padding: 0 1rem;
-        }
+            .timeline::before {
+                left: 30px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+                text-align: left;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            .timeline-dot {
+                left: 20px !important;
+            }
 
-        @media (min-width: 768px) {
-            .container-18-9 {
-                max-width: 800px;
+            .contact-wrapper {
+                flex-direction: column;
+            }
+
+            .bottom-nav a span {
+                display: none; /* Hide text on small screens */
+            }
+            .bottom-nav a i {
+                font-size: 1.8rem;
             }
         }
 
-        @media (min-width: 1024px) {
-            .container-18-9 {
-                max-width: 1600px;
-            }
-        }
-
-        /* Google Drive status indicator */
-        .google-drive-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .google-drive-connected {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-
-        .google-drive-disconnected {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
     </style>
 </head>
-<body class="text-white">
-    <!-- Header -->
-    <header class="glass sticky top-0 z-50 fade-in">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                        RSUD Talaud
-                    </h1>
-                    <p class="text-sm text-gray-400">Manajemen Outsourcing</p>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div id="googleDriveStatus" class="google-drive-status google-drive-disconnected">
-                        <i class="fas fa-cloud mr-2"></i>
-                        <span>Google Drive: Tersambung</span>
-                    </div>
-                    <button id="connectGoogleDrive" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-all">
-                        <i class="fas fa-link mr-2"></i>Sambungkan Google Drive
-                    </button>
-                    <button class="relative p-2 hover:bg-white/10 rounded-lg transition-all">
-                        <i class="fas fa-bell text-xl"></i>
-                        <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-                    </button>
-                    <button class="flex items-center space-x-2 hover:bg-white/10 rounded-lg px-3 py-2 transition-all">
-                        <img src="https://picsum.photos/seed/admin/40/40" alt="Admin" class="w-8 h-8 rounded-full">
-                        <span class="text-sm">Admin</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+<body>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 container-18-9">
-        <!-- Dashboard Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 fade-in">
-            <div class="glass rounded-xl p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold" id="satpamCount">0</span>
-                </div>
-                <h3 class="text-lg font-semibold mb-1">Satpam</h3>
-                <p class="text-sm text-gray-400">Total Personil</p>
-            </div>
-
-            <div class="glass rounded-xl p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-car text-green-400 text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold" id="sopirCount">0</span>
-                </div>
-                <h3 class="text-lg font-semibold mb-1">Sopir</h3>
-                <p class="text-sm text-gray-400">Total Personil</p>
-            </div>
-
-            <div class="glass rounded-xl p-6 card-hover">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-broom text-purple-400 text-xl"></i>
-                    </div>
-                    <span class="text-2xl font-bold" id="kebersihanCount">0</span>
-                </div>
-                <h3 class="text-lg font-semibold mb-1">Kebersihan</h3>
-                <p class="text-sm text-gray-400">Total Personil</p>
-            </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="glass rounded-xl p-1 mb-6 fade-in">
-            <div class="flex space-x-1">
-                <button class="tab-btn flex-1 py-3 px-6 rounded-lg text-center font-medium transition-all" data-tab="satpam">
-                    <i class="fas fa-shield-alt mr-2"></i>Satpam
-                </button>
-                <button class="tab-btn flex-1 py-3 px-6 rounded-lg text-center font-medium transition-all" data-tab="sopir">
-                    <i class="fas fa-car mr-2"></i>Sopir
-                </button>
-                <button class="tab-btn flex-1 py-3 px-6 rounded-lg text-center font-medium transition-all" data-tab="kebersihan">
-                    <i class="fas fa-broom mr-2"></i>Kebersihan
-                </button>
-            </div>
-            <div class="tab-indicator h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg mt-1"></div>
-        </div>
-
-        <!-- Content Area -->
-        <div class="glass rounded-xl p-6 fade-in">
-            <!-- Search and Actions -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-                <div class="relative w-full md:w-96">
-                    <input type="text" id="searchInput" placeholder="Cari nama, NIP, atau divisi..." 
-                           class="form-input w-full pl-10 pr-4 py-2 rounded-lg text-white placeholder-gray-400">
-                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                </div>
-                <div class="flex space-x-3">
-                    <button id="exportBtn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all">
-                        <i class="fas fa-file-export mr-2"></i>Export
-                    </button>
-                    <button id="addBtn" class="btn-primary px-6 py-2 rounded-lg text-white font-medium transition-all">
-                        <i class="fas fa-plus mr-2"></i>Tambah Data
-                    </button>
-                </div>
-            </div>
-
-            <!-- Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-gray-700">
-                            <th class="text-left py-3 px-4">No</th>
-                            <th class="text-left py-3 px-4">Nama</th>
-                            <th class="text-left py-3 px-4">NIP</th>
-                            <th class="text-left py-3 px-4">Divisi</th>
-                            <th class="text-left py-3 px-4">Status</th>
-                            <th class="text-left py-3 px-4">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataTable">
-                        <!-- Data will be inserted here -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="flex justify-center items-center mt-6 space-x-2">
-                <button class="px-3 py-1 rounded-lg hover:bg-white/10 transition-all">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="px-3 py-1 rounded-lg bg-blue-500/20 text-blue-400">1</button>
-                <button class="px-3 py-1 rounded-lg hover:bg-white/10 transition-all">2</button>
-                <button class="px-3 py-1 rounded-lg hover:bg-white/10 transition-all">3</button>
-                <button class="px-3 py-1 rounded-lg hover:bg-white/10 transition-all">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal -->
-    <div id="modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="glass rounded-xl p-6 w-full max-w-md modal-enter">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold" id="modalTitle">Tambah Data</h2>
-                <button id="closeModal" class="hover:bg-white/10 rounded-lg p-2 transition-all">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="form">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Nama</label>
-                        <input type="text" id="nama" required class="form-input w-full px-4 py-2 rounded-lg text-white">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">NIP</label>
-                        <input type="text" id="nip" required class="form-input w-full px-4 py-2 rounded-lg text-white">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Divisi</label>
-                        <select id="divisi" required class="form-input w-full px-4 py-2 rounded-lg text-white">
-                            <option value="">Pilih Divisi</option>
-                            <option value="Satpam">Satpam</option>
-                            <option value="Sopir">Sopir</option>
-                            <option value="Kebersihan">Kebersihan</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Status</label>
-                        <select id="status" required class="form-input w-full px-4 py-2 rounded-lg text-white">
-                            <option value="Aktif">Aktif</option>
-                            <option value="Tidak Aktif">Tidak Aktif</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="flex space-x-3 mt-6">
-                    <button type="button" id="cancelBtn" class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all">
-                        Batal
-                    </button>
-                    <button type="submit" class="flex-1 btn-primary px-4 py-2 rounded-lg text-white font-medium transition-all">
-                        Simpan
-                    </button>
-                </div>
-            </form>
-        </div>
+    <!-- LOADER -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
     </div>
 
-    <!-- Success Toast -->
-    <div id="toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden transform translate-y-full transition-transform">
-        <i class="fas fa-check-circle mr-2"></i>
-        <span id="toastMessage">Berhasil!</span>
-    </div>
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-content-wrapper">
+        
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page-content page-home active-page">
+            <div class="hero-content">
+                <h1>Selamat Datang</h1>
+                <p>Saya <span class="gold-text">Jhosua</span>, seorang yang berdedikasi sebagai <span class="gold-text">Sekretaris Komite K3RS</span> dan <span class="gold-text">Staf Administrasi</span> di RSUD Talaud.</p>
+                <a href="#" class="btn" onclick="showPage('page-contact')">Hubungi Saya</a>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="page-about" class="page-content">
+            <div class="container">
+                <h2>Tentang Saya</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Profesionalisme, Integritas, dan Ketelitian</h3>
+                        <p>
+                            Dengan pengalaman di bidang kesehatan sejak tahun 2022, saya telah mengembangkan keahlian dalam manajemen administrasi yang efisien dan protokol Keselamatan dan Kesehatan Kerja (K3). Saya percaya bahwa dukungan administrasi yang solid dan penerapan K3 yang ketat adalah fondasi utama untuk pelayanan kesehatan yang berkualitas dan aman.
+                        </p>
+                        <p>
+                            Peran ganda saya sebagai Sekretaris Komite K3RS dan Staf Administrasi telah melatih saya untuk menjadi multitasking, detail-oriented, dan selalu siap untuk mendukung tim mencapai tujuan terbaik.
+                        </p>
+                        
+                        <div class="personal-info">
+                            <h3>Informasi Pribadi</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <p>Bitung, 29 November 1996</p>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-heart"></i>
+                                    <p>Belum Menikah</p>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-home"></i>
+                                    <p>Kelurahan Melonguane Barat, Kecamatan Melonguane, Kepulauan Talaud</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-img">
+                        <!-- GANTI 'src' DENGAN FOTO PROFIL ANDA -->
+                        <img src="https://i.ibb.co/2sdFf2m/medical-professional.jpg" alt="Foto Profil Jhosua Vije Malendes">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES/SKILLS PAGE -->
+        <div id="page-services" class="page-content">
+            <div class="container">
+                <h2>Area Keahlian Saya</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Sekretaris Komite K3RS</h3>
+                        <p>Menyusun notulensi rapat, mengelola dokumen K3, koordinasi pelatihan keselamatan, dan pelaporan insiden secara akurat dan tepat waktu.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Staf Administrasi</h3>
+                        <p>Pengarsipan dokumen medis dan non-medis, penjadwalan, manajemen surat-menyurat, dan komunikasi internal yang efektif.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-users-cog"></i>
+                        <h3>Koordinasi & Komunikasi</h3>
+                        <p>Menjadi penghubung yang efektif antar departemen, manajemen, dan pihak eksternal terkait kegiatan administrasi dan K3.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE PAGE -->
+        <div id="page-experience" class="page-content">
+            <div class="container">
+                <h2>Pengalaman Kerja</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Sekretaris Komite K3RS & Staf Administrasi</h3>
+                            <h4>RSUD Talaud</h4>
+                            <span class="gold-text">Februari 2023 - Sekarang</span>
+                            <p>Bertanggung jawab atas kelancaran administrasi kantor dan mendukung penuh implementasi program K3RS, termasuk pelaporan dan audit.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Promotor Kesehatan</h3>
+                            <h4>UPTD Puskesmas Pulutan</h4>
+                            <span class="gold-text">2022</span>
+                            <p>Melakukan edukasi dan promosi kesehatan kepada masyarakat, serta menyusun laporan kegiatan promosi kesehatan.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Magang Kesehatan Kerja dan Olahraga</h3>
+                            <h4>Dinas Kesehatan Provinsi Sulawesi Utara</h4>
+                            <span class="gold-text">2018</span>
+                            <p>Bertanggung jawab dalam pengelolaan program kesehatan kerja dan olahraga, serta melakukan evaluasi terhadap implementasi program di berbagai fasilitas kesehatan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION PAGE -->
+        <div id="page-education" class="page-content">
+            <div class="container">
+                <h2>Riwayat Pendidikan</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>S1 Kesehatan Masyarakat (Peminatan K3)</h3>
+                            <h4>Universitas Sam Ratulangi Manado</h4>
+                            <span class="gold-text">2014</span>
+                            <p>Program studi ini mempelajari dasar-dasar ilmu kesehatan masyarakat dengan fokus pada upaya preventif dan promotif. Peminatan K3 (Keselamatan dan Kesehatan Kerja) memberikan keahlian khusus dalam mengidentifikasi, mengevaluasi, dan mengendalikan risiko di tempat kerja, yang sangat relevan dalam mendukung implementasi program K3RS di lingkungan rumah sakit.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Keperawatan</h3>
+                            <h4>SMKS Baramuli Talaud</h4>
+                            <span class="gold-text">2011</span>
+                            <p>Mendapatkan bekal dasar yang kuat dalam ilmu keperawatan, mencakup konsep asuhan keperawatan, anatomi, fisiologi, farmakologi, serta keterampilan praktik klinik. Pendidikan ini menjadi fondasi awal dalam memahami dunia pelayanan kesehatan dan pentingnya peran seorang perawat dalam tim kesehatan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ORGANIZATION PAGE -->
+        <div id="page-organization" class="page-content">
+            <div class="container">
+                <h2>Pengalaman Organisasi</h2>
+                <div class="organization-grid">
+                    <div class="organization-card">
+                        <h3>Ikatan Ahli Kesehatan Masyarakat Indonesia (IAKMI)</h3>
+                        <p>Sebagai anggota aktif dalam organisasi profesi ini, saya berpartisipasi dalam berbagai kegiatan ilmiah, seminar, dan workshop yang meningkatkan kompetensi di bidang kesehatan masyarakat.</p>
+                    </div>
+                    <div class="organization-card">
+                        <h3>Perhimpunan Ahli Kesehatan Kerja Indonesia (PAKKI)</h3>
+                        <p>Bergabung sebagai anggota untuk mengembangkan jaringan profesional dan meningkatkan pengetahuan tentang praktik terbaik dalam keselamatan dan kesehatan kerja di Indonesia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GALLERY PAGE -->
+        <div id="page-gallery" class="page-content">
+            <div class="container">
+                <h2>Galeri Kegiatan</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Pelatihan K3RS">
+                        <div class="gallery-overlay">
+                            <p>Pelatihan K3RS di RSUD Talaud</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Rapat Komite K3RS">
+                        <div class="gallery-overlay">
+                            <p>Rapat Komite K3RS Bulanan</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sosialisasi K3">
+                        <div class="gallery-overlay">
+                            <p>Sosialisasi Program K3 di Lingkungan Rumah Sakit</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Workshop Administrasi">
+                        <div class="gallery-overlay">
+                            <p>Workshop Manajemen Administrasi Rumah Sakit</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Audit K3RS">
+                        <div class="gallery-overlay">
+                            <p>Kegiatan Audit K3RS Internal</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Seminar Kesehatan">
+                        <div class="gallery-overlay">
+                            <p>Seminar Nasional Kesehatan dan Keselamatan Kerja</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ACHIEVEMENTS PAGE -->
+        <div id="page-achievements" class="page-content">
+            <div class="container">
+                <h2>Prestasi & Sertifikat</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <i class="fas fa-award"></i>
+                        <h3>Sertifikat Ahli K3 Umum</h3>
+                        <p>Kementerian Ketenagakerjaan RI, 2022</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Workshop Manajemen Arsip Medis</h3>
+                        <p>Perpustakaan Nasional RI, 2023</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Pelatihan Sekretaris Profesional</h3>
+                        <p>Lembaga Pengembangan SDM Kesehatan, 2022</p>
+                    </div>
+                    <div class="achievement-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Pegawai Teladan 2023</h3>
+                        <p>RSUD Talaud</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="page-contact" class="page-content">
+            <div class="container">
+                <h2>Hubungi Saya</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Mari Terhubung</h3>
+                        <p>Saya terbuka untuk peluang kolaborasi dan diskusi mengenai manajemen K3RS dan administrasi rumah sakit.</p>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>jhosuavijemalendes@gmail.com</p>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <p><a href="https://wa.me/6285179912529" target="_blank">+62 851-7991-2529 (WhatsApp)</a></p>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fab fa-linkedin"></i>
+                            <p>linkedin.com/in/jhosuavijemalendes</p>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <!-- FORM INI HANYA CONTOH, TIDAK BISA MENGIRIM EMAIL TANPA BACKEND -->
+                        <form id="contactForm" action="#" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Nama Lengkap Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Pesan Anda" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Kirim Pesan</button>
+                        </form>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--color-accent);">*Form ini memerlukan backend untuk dapat mengirim email</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- END MAIN CONTENT WRAPPER -->
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 Jhosua Vije Malendes | <a href="mailto:jhosuavijemalendes@gmail.com">Hubungi Saya</a></p>
+    </footer>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="#page-home" class="nav-link active" data-page="page-home">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="#page-about" class="nav-link" data-page="page-about">
+            <i class="fas fa-user"></i>
+            <span>Tentang</span>
+        </a>
+        <a href="#page-services" class="nav-link" data-page="page-services">
+            <i class="fas fa-briefcase"></i>
+            <span>Keahlian</span>
+        </a>
+        <a href="#page-experience" class="nav-link" data-page="page-experience">
+            <i class="fas fa-history"></i>
+            <span>Pengalaman</span>
+        </a>
+        <a href="#page-education" class="nav-link" data-page="page-education">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Pendidikan</span>
+        </a>
+        <a href="#page-organization" class="nav-link" data-page="page-organization">
+            <i class="fas fa-users"></i>
+            <span>Organisasi</span>
+        </a>
+        <a href="#page-gallery" class="nav-link" data-page="page-gallery">
+            <i class="fas fa-images"></i>
+            <span>Galeri</span>
+        </a>
+        <a href="#page-contact" class="nav-link" data-page="page-contact">
+            <i class="fas fa-envelope"></i>
+            <span>Kontak</span>
+        </a>
+    </nav>
 
     <script>
-        // Google Drive API Configuration
-        const CLIENT_ID = 'YOUR_CLIENT_ID'; // Ganti dengan Client ID Anda
-        const API_KEY = 'YOUR_API_KEY'; // Ganti dengan API Key Anda
-        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-        const FOLDER_ID = '1zWtn8b9lqhnuyy_Tk8tKRhaJ9m-hUE2R'; // Folder ID dari URL yang Anda berikan
-        const FILE_NAME = 'RSUD_Talaud_Data.xlsx';
-        
-        let gapi = null;
-        let googleDriveConnected = false;
-        
-        // Data storage
-        let data = {
-            satpam: [
-                { id: 1, nama: 'Ahmad Fauzi', nip: '198001012019011001', status: 'Aktif' },
-                { id: 2, nama: 'Budi Santoso', nip: '198502022020022002', status: 'Aktif' },
-                { id: 3, nama: 'Cahyono', nip: '199003032021033003', status: 'Tidak Aktif' }
-            ],
-            sopir: [
-                { id: 4, nama: 'Dedi Pratama', nip: '198104042022044004', status: 'Aktif' },
-                { id: 5, nama: 'Eko Saputra', nip: '198205052023055005', status: 'Aktif' }
-            ],
-            kebersihan: [
-                { id: 6, nama: 'Fina Sari', nip: '198306062024066006', status: 'Aktif' },
-                { id: 7, nama: 'Gita Wulandari', nip: '198407072025077007', status: 'Aktif' },
-                { id: 8, nama: 'Hendra Wijaya', nip: '198508082026088008', status: 'Tidak Aktif' }
-            ]
-        };
-
-        let currentTab = 'satpam';
-        let editingId = null;
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            renderTable();
-            updateCounts();
-            setupEventListeners();
-            setupTabs();
-            initGoogleDrive();
+        // --- LOADER SCRIPT ---
+        window.addEventListener('load', () => {
+            const loaderWrapper = document.querySelector('.loader-wrapper');
+            setTimeout(() => {
+                loaderWrapper.classList.add('fade-out');
+            }, 1000);
         });
 
-        // Initialize Google Drive API
-        function initGoogleDrive() {
-            gapi.load('client:auth2', () => {
-                gapi.client.init({
-                    apiKey: API_KEY,
-                    clientId: CLIENT_ID,
-                    discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-                    scope: SCOPES
-                }).then(() => {
-                    // Check if user is already signed in
-                    const authInstance = gapi.auth2.getAuthInstance();
-                    const isSignedIn = authInstance.isSignedIn.get();
-                    
-                    if (isSignedIn) {
-                        googleDriveConnected = true;
-                        updateGoogleDriveStatus();
-                    }
-                });
-            });
-        }
+        // --- PAGE NAVIGATION SCRIPT ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page-content');
 
-        // Update Google Drive connection status
-        function updateGoogleDriveStatus() {
-            const statusElement = document.getElementById('googleDriveStatus');
-            const connectButton = document.getElementById('connectGoogleDrive');
-            
-            if (googleDriveConnected) {
-                statusElement.className = 'google-drive-status google-drive-connected';
-                statusElement.innerHTML = '<i class="fas fa-check-circle mr-2"></i><span>Google Drive: Tersambung</span>';
-                connectButton.style.display = 'none';
-            } else {
-                statusElement.className = 'google-drive-status google-drive-disconnected';
-                statusElement.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i><span>Google Drive: Belum Tersambung</span>';
-                connectButton.style.display = 'inline-block';
-            }
-        }
-
-        // Setup tabs
-        function setupTabs() {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const indicator = document.querySelector('.tab-indicator');
-            
-            tabs.forEach((tab, index) => {
-                tab.addEventListener('click', function() {
-                    currentTab = this.dataset.tab;
-                    updateActiveTab();
-                    renderTable();
-                });
+        function showPage(pageId) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.classList.remove('active-page');
             });
 
-            updateActiveTab();
-        }
-
-        function updateActiveTab() {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const indicator = document.querySelector('.tab-indicator');
-            
-            tabs.forEach(tab => {
-                tab.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-purple-500', 'text-white');
-                tab.classList.add('hover:bg-white/10');
-            });
-
-            const activeTab = document.querySelector(`[data-tab="${currentTab}"]`);
-            activeTab.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-purple-500', 'text-white');
-            activeTab.classList.remove('hover:bg-white/10');
-
-            // Update indicator position
-            const tabRect = activeTab.getBoundingClientRect();
-            const containerRect = activeTab.parentElement.getBoundingClientRect();
-            indicator.style.width = `${tabRect.width}px`;
-            indicator.style.transform = `translateX(${tabRect.left - containerRect.left}px)`;
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Modal controls
-            document.getElementById('addBtn').addEventListener('click', openModal);
-            document.getElementById('closeModal').addEventListener('click', closeModal);
-            document.getElementById('cancelBtn').addEventListener('click', closeModal);
-            document.getElementById('modal').addEventListener('click', function(e) {
-                if (e.target === this) closeModal();
-            });
-
-            // Form submission
-            document.getElementById('form').addEventListener('submit', handleSubmit);
-
-            // Search
-            document.getElementById('searchInput').addEventListener('input', function() {
-                renderTable(this.value);
-            });
-
-            // Export
-            document.getElementById('exportBtn').addEventListener('click', exportData);
-            
-            // Google Drive connection
-            document.getElementById('connectGoogleDrive').addEventListener('click', connectToGoogleDrive);
-        }
-
-        // Connect to Google Drive
-        function connectToGoogleDrive() {
-            gapi.auth2.getAuthInstance().signIn().then(() => {
-                googleDriveConnected = true;
-                updateGoogleDriveStatus();
-                showToast('Google Drive berhasil tersambung!');
-            }).catch(error => {
-                console.error('Error connecting to Google Drive:', error);
-                showToast('Gagal tersambung ke Google Drive', 'error');
-            });
-        }
-
-        // Save data to Google Drive
-        async function saveToGoogleDrive() {
-            if (!googleDriveConnected) {
-                showToast('Silakan sambungkan Google Drive terlebih dahulu', 'error');
-                return;
+            // Show the selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
             }
 
-            try {
-                // Create workbook with three sheets
-                const wb = XLSX.utils.book_new();
-                
-                // Create data for each category
-                const satpamData = data.satpam.map((item, index) => ({
-                    'No': index + 1,
-                    'Nama': item.nama,
-                    'NIP': item.nip,
-                    'Status': item.status
-                }));
-                
-                const sopirData = data.sopir.map((item, index) => ({
-                    'No': index + 1,
-                    'Nama': item.nama,
-                    'NIP': item.nip,
-                    'Status': item.status
-                }));
-                
-                const kebersihanData = data.kebersihan.map((item, index) => ({
-                    'No': index + 1,
-                    'Nama': item.nama,
-                    'NIP': item.nip,
-                    'Status': item.status
-                }));
-                
-                // Create sheets
-                const wsSatpam = XLSX.utils.json_to_sheet(satpamData);
-                const wsSopir = XLSX.utils.json_to_sheet(sopirData);
-                const wsKebersihan = XLSX.utils.json_to_sheet(kebersihanData);
-                
-                // Add sheets to workbook
-                XLSX.utils.book_append_sheet(wb, wsSatpam, 'Satpam');
-                XLSX.utils.book_append_sheet(wb, wsSopir, 'Sopir');
-                XLSX.utils.book_append_sheet(wb, wsKebersihan, 'Kebersihan');
-                
-                // Generate Excel file
-                const excelData = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-                const blob = new Blob([excelData], { type: 'application/octet-stream' });
-                
-                // Check if file exists
-                const fileList = await gapi.client.drive.files.list({
-                    q: `name='${FILE_NAME}' and parents in '${FOLDER_ID}' and trashed=false`,
-                    fields: 'files(id, name)'
-                });
-                
-                if (fileList.result.files.length > 0) {
-                    // File exists, update it
-                    const fileId = fileList.result.files[0].id;
-                    await gapi.client.drive.files.update({
-                        fileId: fileId,
-                        media: {
-                            mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                            body: blob
-                        }
-                    });
-                    showToast('Data berhasil diperbarui di Google Drive!');
-                } else {
-                    // File doesn't exist, create it
-                    const metadata = {
-                        name: FILE_NAME,
-                        parents: [FOLDER_ID],
-                        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    };
-                    
-                    await gapi.client.drive.files.create({
-                        resource: metadata,
-                        media: {
-                            mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                            body: blob
-                        }
-                    });
-                    showToast('Data berhasil disimpan ke Google Drive!');
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
                 }
-            } catch (error) {
-                console.error('Error saving to Google Drive:', error);
-                showToast('Gagal menyimpan data ke Google Drive', 'error');
-            }
+            });
         }
 
-        // Render table
-        function renderTable(searchTerm = '') {
-            const tbody = document.getElementById('dataTable');
-            const currentData = data[currentTab] || [];
-            
-            let filteredData = currentData;
-            if (searchTerm) {
-                filteredData = currentData.filter(item => 
-                    item.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    item.nip.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-            }
+        // Add click event listeners to nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
 
-            tbody.innerHTML = filteredData.map((item, index) => `
-                <tr class="border-b border-gray-700 hover:bg-white/5 transition-all">
-                    <td class="py-3 px-4">${index + 1}</td>
-                    <td class="py-3 px-4 font-medium">${item.nama}</td>
-                    <td class="py-3 px-4 text-gray-400">${item.nip}</td>
-                    <td class="py-3 px-4">
-                        <span class="status-badge ${item.status === 'Aktif' ? 'status-active' : 'status-inactive'}">
-                            ${item.status}
-                        </span>
-                    </td>
-                    <td class="py-3 px-4">
-                        <button onclick="editItem(${item.id})" class="text-blue-400 hover:text-blue-300 mr-3 transition-all">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button onclick="deleteItem(${item.id})" class="text-red-400 hover:text-red-300 transition-all">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // Update counts
-        function updateCounts() {
-            document.getElementById('satpamCount').textContent = data.satpam.length;
-            document.getElementById('sopirCount').textContent = data.sopir.length;
-            document.getElementById('kebersihanCount').textContent = data.kebersihan.length;
-        }
-
-        // Modal functions
-        function openModal(id = null) {
-            const modal = document.getElementById('modal');
-            const title = document.getElementById('modalTitle');
-            const form = document.getElementById('form');
-            
-            editingId = id;
-            
-            if (id) {
-                title.textContent = 'Edit Data';
-                const item = findItem(id);
-                if (item) {
-                    document.getElementById('nama').value = item.nama;
-                    document.getElementById('nip').value = item.nip;
-                    document.getElementById('divisi').value = currentTab;
-                    document.getElementById('status').value = item.status;
-                }
-            } else {
-                title.textContent = 'Tambah Data';
-                form.reset();
-                document.getElementById('divisi').value = currentTab;
-            }
-            
-            modal.classList.remove('hidden');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.add('hidden');
-            editingId = null;
-        }
-
-        // Find item
-        function findItem(id) {
-            const currentData = data[currentTab] || [];
-            return currentData.find(item => item.id === id);
-        }
-
-        // Handle form submission
-        function handleSubmit(e) {
+        // --- CONTACT FORM HANDLING ---
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const formData = {
-                nama: document.getElementById('nama').value,
-                nip: document.getElementById('nip').value,
-                status: document.getElementById('status').value
-            };
-
-            if (editingId) {
-                // Update existing item
-                const currentData = data[currentTab] || [];
-                const index = currentData.findIndex(item => item.id === editingId);
-                if (index !== -1) {
-                    currentData[index] = { ...currentData[index], ...formData };
-                }
-                showToast('Data berhasil diperbarui!');
-            } else {
-                // Add new item
-                const newId = Math.max(...Object.values(data).flat().map(item => item.id), 0) + 1;
-                data[currentTab].push({ id: newId, ...formData });
-                showToast('Data berhasil ditambahkan!');
-            }
-
-            closeModal();
-            renderTable();
-            updateCounts();
+            // Menampilkan notifikasi bahwa form memerlukan backend
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'var(--color-accent)';
+            notification.style.color = 'var(--bg-dark)';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '10000';
+            notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            notification.style.fontWeight = '600';
+            notification.textContent = 'Terima kasih! Form ini memerlukan backend untuk dapat mengirim pesan.';
             
-            // Save to Google Drive
-            saveToGoogleDrive();
-        }
-
-        // Edit item
-        function editItem(id) {
-            openModal(id);
-        }
-
-        // Delete item
-        function deleteItem(id) {
-            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                const currentData = data[currentTab] || [];
-                data[currentTab] = currentData.filter(item => item.id !== id);
-                renderTable();
-                updateCounts();
-                showToast('Data berhasil dihapus!');
-                
-                // Save to Google Drive
-                saveToGoogleDrive();
-            }
-        }
-
-        // Show toast
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
+            document.body.appendChild(notification);
             
-            toastMessage.textContent = message;
+            // Reset form
+            this.reset();
             
-            if (type === 'error') {
-                toast.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform';
-            } else {
-                toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform';
-            }
-            
-            toast.classList.remove('hidden', 'translate-y-full');
-            
+            // Hapus notifikasi setelah 5 detik
             setTimeout(() => {
-                toast.classList.add('translate-y-full');
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
                 setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 300);
-            }, 3000);
-        }
-
-        // Export data
-        function exportData() {
-            const currentData = data[currentTab] || [];
-            const csvContent = "data:text/csv;charset=utf-8," 
-                + "Nama,NIP,Status\n"
-                + currentData.map(item => `${item.nama},${item.nip},${item.status}`).join("\n");
-            
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `data_${currentTab}_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showToast('Data berhasil diekspor!');
-        }
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 5000);
+        });
     </script>
 </body>
 </html>
